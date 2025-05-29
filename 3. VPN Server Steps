@@ -1,0 +1,54 @@
+VPNServer:
+Username: VPNServer
+MAC: ssh -i ~/downloads/VPNServer_key.pem VPNServer@52.151.25.177
+
+Windows:
+WebServer1:
+Username: WebServer1
+MAC: ssh -i ~/downloads/WebServer1_key.pem WebServer1@52.151.15.143
+
+Windows:
+FTPServer:
+Username: FTPServer
+MAC: ssh -i ~/downloads/FTPServer_key.pem FTPServer@52.151.12.246
+
+Windows:
+WebServer2:
+Username: WebServer2
+ssh -i ~/downloads/WebServer1_key.pem WebServer2@52.250.104.128
+
+(Initially wanted to used OpenVPN Server and OpenVPN Client to talk to each other and used these commands to move our .ovpn file to each server)
+scp -i ~/downloads/FTPServer_key.pem ~/downloads/VPNServerClient2.ovpn FTPServer@52.250.104.211:~/VPNServerClient2.ovpn
+scp VPNServer@51.143.21.11:VPNServerClient2.ovpn WebServer1@52.250.104.217:VPNServerClient2.ovpn
+scp -i ~/downloads/WebServer1_key.pem VPNServerClient2.ovpn WebServer1@52.250.104.217:~/.ssh
+scp -i ~/downloads/VPNServer_key.pem ~/downloads/ FTPServer@52.250.104.211FTPServer@52.250.104.211:~/VPNServerClient2.ovpn
+
+(Copied ‘FTPServer_key.pem’ from local computer to VPNServer)
+scp -i ~/downloads/VPNServer_key.pem ~/downloads/FTPServer_key.pem VPNServer@51.143.21.11:~/FTPServer_key.pem
+
+(Copied ‘WebServer1_key.pem’ from local computer to VPNServer)
+scp -i ~/downloads/VPNServer_key.pem ~/downloads/WebServer1_key.pem VPNServer@51.143.21.11:~/WebServer1_key.pem
+
+(Sign into VPNServer)
+ssh -i ~/downloads/VPNServer_key.pem VPNServer@52.151.25.177
+
+(Start OpenVPN Server Service)
+sudo systemctl start openvpn-server@server.service
+
+(Connect to FTPServer from inside VPNServer)
+ssh -i FTPServer_key.pem FTPServer@52.151.13.205
+
+(Exit back to VPNServer)
+exit
+
+(Connect to WebServer1 from inside VPNServer)
+ssh -i WebServer1_key.pem WebServer1@52.151.15.143
+
+(Connect to WebServer2 from inside VPNServer)
+ssh -i WebServer1_key.pem WebServer2@52.151.12.246
+
+sudo systemctl status apache2 (checks status it should be ‘running’)
+
+sudo systemctl start apache2 (if not already running)
+
+sudo systemctl restart apache2 (after any changes to html source code, to show on live web page)
