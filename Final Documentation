@@ -1,0 +1,37 @@
+1.	LAUNCH LINUX SERVERS
+Requirements include VPN server/Web server (accessible over HTTP) and FTP server/Web Server (accessible over VPN)
+A.	Create VPN Server
+i.	Log on to https://azure.microsoft.com/en-us/features/azure-portal/ 
+ii.	In search bar type ‘resource group’ and click on it.
+iii.	‘+ Create’ to create resource group that will be used for other VMs in the project 
+iv.	In search bar type ‘virtual machines’ click and ‘+ create’ virtual machine with the following specifications:
+
+Azure Virtual Server Specs:
+Resource Group: Use resource group created in previous steps
+Name: VPNServer (or something like that to differentiate servers)
+Region: Same region as resource group
+Image: Ubuntu Server 18.04 or 20.04 LTS – Gen1
+Size: Standard B1s
+Inbound Ports: HTTP, HTTPS. SSH, RDP
+OS Disk type: Standard HDD
+Advanced: Disable managed disks 
+Networking
+Virtual Network: Create new if one doesn’t exist
+Management
+Auto-Shutdown (highly recommended)
+Review+Create & Create VM
+
+v.	Create 3 virtual machines (Web Servers (2) and FTP Server in the same resource group created VPN Server
+2.	SET-UP VPN SERVER
+A.	Create VPN Server
+i.	Log onto Linux VM using SSH key or password
+ii.	‘sudo apt-get update’ + ‘sudo apt-get install’ (Update version of Linux)
+iii.	‘sudo mkdir .ssh’ (Makes SSH directory)
+iv.	‘cd .ssh’ (Changes directory to /home/ubuntu/.ssh) 
+v.	‘wget https://git.io/vpn -O openvpn-install.sh’ (downloads OpenVPN install software)
+vi.	chmod +x openvpn-install.sh (Changes permission to allow execution of OpenVPN install software)
+vii.	sudo ./openvpn-install.sh (Installs OpenVPN)
+During installation follow these steps
+
+i.	
+3.	
