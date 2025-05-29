@@ -22,6 +22,7 @@ Auto-Shutdown (highly recommended)
 Review+Create & Create VM
 
 v.	Create 3 virtual machines (Web Servers (2) and FTP Server in the same resource group created VPN Server
+
 2.	SET-UP VPN SERVER
 A.	Create VPN Server
 i.	Log onto Linux VM using SSH key or password
@@ -33,5 +34,4 @@ vi.	chmod +x openvpn-install.sh (Changes permission to allow execution of OpenVP
 vii.	sudo ./openvpn-install.sh (Installs OpenVPN)
 During installation follow these steps
 
-i.	
-3.	
+
